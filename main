@@ -1,0 +1,58 @@
+import re
+
+string = 'SELECT <ATTRIBUTE_NAMES> FROM <TABLE_NAMES> WHERE <CONDITIONS>'
+string2 = 'SELECT LOL FROM LOL WHERE LOOOL'
+string3 = 'SELECT NAME, AGE, COUNTRY FROM PERSON WHERE NAME NE "MALIBU'
+
+words = {}
+
+pattern = re.compile('^SELECT *.* *FROM *.* *WHERE.*')
+patternCmd = re.compile('FROM|SELECT|WHERE')
+patternOperand = re.compile('SELECT *(.*) * FROM')
+patternName = re.compile('[,]\s')
+patternTable = re.compile('FROM *(.*) * WHERE')
+patternConditions = re.compile('WHERE *(.*)$')
+
+#check message
+check = pattern.findall(string3)
+if check is not None:
+    print('message is correct')
+    print(check)
+    print(len(check))
+
+    #find and save command
+    i = 0
+    command = patternCmd.findall(string3)
+    while i < len(command) is not None:
+        words[command[i]] = 'command'
+        print(command[i],'=',words[command[i]])
+        i = i + 1
+
+    # find and save atribute names
+    i = 0
+    operand = patternOperand.findall(string3)
+    atributeName = patternName.split(operand[0])
+    while i < len(atributeName) is not None:
+        words[atributeName[i]] = 'atribute'
+        print(atributeName[i],'=',words[atributeName[i]])
+        i = i + 1
+
+    # find and save table names
+    i = 0
+    table = patternTable.findall(string3)
+    while i < len(table) is not None:
+        words[table[i]] = 'table name'
+        print(table[i],'=',words[table[i]])
+        i = i + 1
+
+    # find and save conditions
+    i = 0
+    conditions = patternConditions.findall(string3)
+    while i < len(conditions) is not None:
+        words[conditions[i]] = 'conditions'
+        print(conditions[i],'=',words[conditions[i]])
+        i = i + 1
+
+else:
+    print('message is not correct')
+
