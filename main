@@ -2,7 +2,8 @@ import re
 
 string = 'SELECT <ATTRIBUTE_NAMES> FROM <TABLE_NAMES> WHERE <CONDITIONS>'
 string2 = 'SELECT LOL FROM LOL WHERE LOOOL'
-string3 = 'SELECT NAME, AGE, COUNTRY FROM PERSON WHERE NAME NE "MALIBU'
+string3 = 'SELECT NAME, AGE, COUNTRY FROM PERSON WHERE NAME NE "MALIBU"'
+string5 = ' '
 
 words = {}
 
@@ -13,12 +14,28 @@ patternName = re.compile('[,]\s')
 patternTable = re.compile('FROM *(.*) * WHERE')
 patternConditions = re.compile('WHERE *(.*)$')
 
+def findAndSave(typeName, pattern):
+    i = 0
+    type = pattern.findall(string3)
+    while i < len(type) is not None:
+        words[type[i]] = typeName
+        print(type[i], '=', words[type[i]])
+        i = i + 1
+
+
 #check message
+checkEmpty = re.sub(r'\s+', '', string3)
 check = pattern.findall(string3)
-if check is not None:
+if check is not None and len(checkEmpty) != 0:
     print('message is correct')
     print(check)
     print(len(check))
+
+    #funcions
+    #print('func')
+    #findAndSave('conditions', patternConditions)
+    #findAndSave('command', patternCmd)
+    #findAndSave('atribute', patternCmd)
 
     #find and save command
     i = 0
@@ -52,6 +69,8 @@ if check is not None:
         words[conditions[i]] = 'conditions'
         print(conditions[i],'=',words[conditions[i]])
         i = i + 1
+
+
 
 else:
     print('message is not correct')
