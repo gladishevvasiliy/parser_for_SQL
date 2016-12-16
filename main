@@ -31,7 +31,7 @@ if check is not None and len(checkEmpty) != 0:
     print(check)
     print(len(check))
 
-    #funcions
+    #funcions not used
     #print('func')
     #findAndSave('conditions', patternConditions)
     #findAndSave('command', patternCmd)
